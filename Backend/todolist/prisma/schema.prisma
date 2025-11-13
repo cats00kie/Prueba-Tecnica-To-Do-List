@@ -1,0 +1,37 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Tarea {
+  id          String   @id @default(uuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  eliminada   Boolean  @default(false)
+  titulo      String
+  descripcion String?
+  estado      Boolean  @default(false)
+  usuarioId   String
+  usuario     Usuario  @relation(fields: [usuarioId], references: [id])
+}
+
+model Usuario {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  email     String   @unique
+  password  String
+  usuario   String
+  tareas    Tarea[]
+}
+
+generator nestdto {
+  provider = "prisma-generator-nestjs-dto"
+  output   = "../src/generated/nest-dto"
+}
+
