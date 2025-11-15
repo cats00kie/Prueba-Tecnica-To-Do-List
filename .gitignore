@@ -50,6 +50,11 @@ vite.config.ts.tmp
 prisma/*.db
 prisma/migrations/dev.db-journal
 prisma/migrations/dev.db
+# Prisma Engines
+prisma/query-engine*
+prisma/libquery_engine*
+prisma/schema-engine*
+
 
 # NestJS
 .nest/
