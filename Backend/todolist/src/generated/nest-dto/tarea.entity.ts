@@ -18,6 +18,11 @@ updatedAt: Date ;
 eliminada: boolean ;
 titulo: string ;
 descripcion: string  | null;
+@ApiProperty({
+  type: `string`,
+  format: `date-time`,
+})
+fecha: Date ;
 estado: boolean ;
 usuarioId: string ;
 usuario?: Usuario ;

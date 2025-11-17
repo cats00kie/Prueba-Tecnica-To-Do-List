@@ -31,6 +31,7 @@ export default function Navbar({
         <span className="text-lg">User</span>
 
         <button
+          type="button"
           onClick={() => setOpen((prev) => !prev)}
           className="focus:outline-none"
         >
@@ -38,8 +39,9 @@ export default function Navbar({
         </button>
 
         {open && (
-          <div className="absolute right-0 z-10 mt-45 w-32 rounded-md bg-white py-2 text-black shadow-md dark:bg-gray-800 dark:text-white">
+          <div className="absolute right-0 z-10 mt-40 w-32 rounded-md bg-white py-2 text-black shadow-md dark:bg-gray-800 dark:text-white">
             <button
+              type="button"
               className="flex w-full items-center gap-2 px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700"
               onClick={() => setDarkMode((prev) => !prev)}
             >
@@ -48,6 +50,7 @@ export default function Navbar({
             </button>
             <hr className="my-1 border-gray-300 dark:border-gray-600" />
             <button
+              type="button"
               className="w-full px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700"
               onClick={() => alert('Logging out...')} //CAMBIAR A TOAST
             >

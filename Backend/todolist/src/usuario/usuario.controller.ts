@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import { UsuarioService } from './usuario.service';
+import { CreateUsuarioDto } from 'src/generated/nest-dto/create-usuario.dto';
 
 @Controller('usuarios')
 export class UsuarioController {
@@ -11,17 +12,12 @@ export class UsuarioController {
   }
 
   @Post()
-  create(@Body() data: { email: string; password: string; usuario: string; }) {
-    return this.usuarioService.create(data);
+  create(@Body() dto: CreateUsuarioDto) {
+    return this.usuarioService.create(dto);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.usuarioService.findOne(id);
-  }
-
-  @Delete(':id')
-  delete(@Param('id') id: string) {
-    return this.usuarioService.delete(id);
   }
 }

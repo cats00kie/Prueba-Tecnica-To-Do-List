@@ -1,7 +1,7 @@
-import CardTarea from './CardTarea';
-import { BadgeTareas } from './BadgeTareas';
+import CardTarea from '../components/CardTarea';
+import { BadgeTareas } from '../components/BadgeTareas';
 
-export default function TasksPage() {
+export default function GridTareas() {
   return (
     <div className="m-6 mx-auto max-w-5xl rounded-2xl border border-gray-300 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-900">
       <div className="mb-6 flex items-center gap-2">

@@ -1,6 +1,7 @@
 
 import {ApiProperty} from '@nestjs/swagger'
 
+
 export class UsuarioDto {
   id: string ;
 @ApiProperty({
