@@ -29,7 +29,6 @@ export default function ModalAgregar({
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    console.log(form);
     fetch('http://localhost:3000/tareas', {
       method: 'POST',
       headers: {

@@ -31,7 +31,6 @@ export default function ModalModificar({
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    console.log(form);
     fetch(`http://localhost:3000/tareas/` + tarea.id, {
       method: 'PUT',
       headers: {
