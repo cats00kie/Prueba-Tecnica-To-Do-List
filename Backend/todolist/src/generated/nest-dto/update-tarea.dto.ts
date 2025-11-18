@@ -4,19 +4,23 @@ export class UpdateTareaDto {
   @ApiProperty({
     type: `string`,
   })
-  titulo?: string;
+  id: string;
   @ApiProperty({
     type: `string`,
   })
-  descripcion?: string;
+  titulo: string;
+  @ApiProperty({
+    type: `string`,
+  })
+  descripcion: string;
   @ApiProperty({
     type: `string`,
     format: `date-time`,
   })
-  fecha?: Date;
+  fecha: Date;
   @ApiProperty({
     type: 'string',
   })
-  usuarioId?: string;
+  usuarioId: string;
 
 }

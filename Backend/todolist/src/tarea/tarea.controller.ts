@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Patch, Delete, NotFoundException, BadRequestException } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Patch, Delete, NotFoundException, BadRequestException, Header, Headers, Put } from '@nestjs/common';
 import { TareaService } from './tarea.service';
 import { CreateTareaDto } from 'src/generated/nest-dto/create-tarea.dto';
 import { UpdateTareaDto } from 'src/generated/nest-dto/update-tarea.dto';
@@ -13,6 +13,7 @@ export class TareaController {
 
   @Post()
   async create(@Body() dto: CreateTareaDto) {
+    dto.fecha = new Date(dto.fecha);
     return this.tareaService.create({ ...dto });
   }
 
@@ -22,18 +23,19 @@ export class TareaController {
   }
 
   @Get()
-  findAll() {
-    return this.tareaService.findAll();
+  async findByUsuario(@Headers('usuarioId') usuarioId: string) {
+    return this.tareaService.findAllByUsuario(usuarioId);
   }
 
-  @Patch(':id')
+  @Put(':id')
   edit(@Param('id') id: string, @Body() dto: UpdateTareaDto) {
+    dto.fecha = new Date(dto.fecha);
     return this.tareaService.edit(id, dto);
   }
 
-  @Patch(':id/complete')
-  markComplete(@Param('id') id: string) {
-    return this.tareaService.markComplete(id);
+  @Put(':id/estado')
+  changeEstado(@Param('id') id: string) {
+    return this.tareaService.changeEstado(id);
   }
 
   @Delete(':id')

@@ -27,6 +27,7 @@ model Usuario {
   email     String   @unique
   password  String
   usuario   String
+  tareas    Tarea[]
 }
 
 generator nestdto {

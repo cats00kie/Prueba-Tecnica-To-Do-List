@@ -1,4 +1,12 @@
-import { Controller, Post, Body, UseGuards, Get } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  UseGuards,
+  Get,
+  Header,
+  Headers,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -19,7 +27,28 @@ export class AuthController {
 
   @Post('login')
   async login(@Body() dto: LoginDto) {
-    const user = await this.auth.validar(dto.email, dto.password);
-    return this.auth.login(user);
+    const usuario = await this.auth.validar(dto.email, dto.password);
+    const loginResponse = await this.auth.login(usuario);
+
+    return {
+      ...loginResponse,
+      usuarioId: usuario.id,
+      usuario: usuario.usuario,
+    };
+  }
+
+  @Get('validarToken')
+  async validarToken(@Headers('X-Authorization') token: string) {
+    try {
+      const payloadBase64 = token.split('.')[1];
+      const decodedPayload = JSON.parse(atob(payloadBase64));
+      const exp = decodedPayload.exp;
+
+      if (!exp) return false;
+      const vencido = Date.now() >= exp * 1000;
+      return !vencido;
+    } catch (err) {
+      return false;
+    }
   }
 }

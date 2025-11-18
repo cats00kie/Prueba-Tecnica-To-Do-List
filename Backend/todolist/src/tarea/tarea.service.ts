@@ -11,17 +11,6 @@ export class TareaService {
   async create(dto: CreateTareaDto) {
     return this.prisma.tarea.create({
       data: dto as Prisma.TareaUncheckedCreateInput,
-      include: {
-        usuario: {
-          select: {
-            id: true,
-            usuario: true,
-            email: true,
-            createdAt: true,
-            updatedAt: true,
-          },
-        },
-      },
     });
   }
 
@@ -33,6 +22,7 @@ export class TareaService {
         descripcion: true,
         estado: true,
         eliminada: true,
+        fecha: true,
         createdAt: true,
         updatedAt: true,
         usuario: {
@@ -48,7 +38,7 @@ export class TareaService {
 
   async findAllByUsuario(usuarioId: string) {
     return this.prisma.tarea.findMany({
-      where: { usuarioId },
+      where: { usuarioId, eliminada: false },
       select: {
         id: true,
         titulo: true,
@@ -57,11 +47,11 @@ export class TareaService {
         eliminada: true,
         createdAt: true,
         updatedAt: true,
+        fecha: true,
+        usuarioId: true,
       },
     });
   }
-
-
 
   async findOne(id: string) {
     const tarea = await this.prisma.tarea.findUnique({
@@ -89,10 +79,16 @@ export class TareaService {
     });
   }
 
-  markComplete(id: string) {
+  async changeEstado(id: string) {
+    const tarea = await this.prisma.tarea.findUnique({
+      where: { id },
+    });
+
+    if (!tarea) throw new Error('Tarea no encontrada');
+
     return this.prisma.tarea.update({
       where: { id },
-      data: { estado: true },
+      data: { estado: !tarea.estado },
     });
   }
 

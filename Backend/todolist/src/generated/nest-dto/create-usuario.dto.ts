@@ -8,9 +8,9 @@ export class CreateUsuarioDto {
   @ApiProperty({
     type: `string`,
   })
-  password: string;
+  usuario: string;
   @ApiProperty({
     type: `string`,
   })
-  usuario: string;
+  password: string;
 }
