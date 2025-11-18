@@ -29,11 +29,13 @@ export default function Login() {
         return response.json();
       })
       .then((data) => {
-        localStorage.setItem('apiKey', data.access_token);
-        localStorage.setItem('usuarioId', data.usuarioId);
-        localStorage.setItem('usuario', data.usuario);
-        toast.success('Éxito!');
-        navigator('/');
+        if (!data.error) {
+          localStorage.setItem('apiKey', data.access_token);
+          localStorage.setItem('usuarioId', data.usuarioId);
+          localStorage.setItem('usuario', data.usuario);
+          toast.success('Éxito!');
+          navigator('/');
+        }
       })
       .catch((err) => console.error(err));
   }

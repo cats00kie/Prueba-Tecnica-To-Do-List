@@ -14,7 +14,7 @@ model Tarea {
   eliminada   Boolean  @default(false)
   titulo      String
   descripcion String?
-  fecha       DateTime
+  fecha DateTime
   estado      Boolean  @default(false)
   usuarioId   String
   usuario     Usuario  @relation(fields: [usuarioId], references: [id])

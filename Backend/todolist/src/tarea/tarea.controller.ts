@@ -1,4 +1,17 @@
-import { Body, Controller, Get, Param, Post, Patch, Delete, NotFoundException, BadRequestException, Header, Headers, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Patch,
+  Delete,
+  NotFoundException,
+  BadRequestException,
+  Header,
+  Headers,
+  Put,
+} from '@nestjs/common';
 import { TareaService } from './tarea.service';
 import { CreateTareaDto } from 'src/generated/nest-dto/create-tarea.dto';
 import { UpdateTareaDto } from 'src/generated/nest-dto/update-tarea.dto';
@@ -8,8 +21,10 @@ import { UsuarioDto } from 'src/generated/nest-dto/usuario.dto';
 
 @Controller('tareas')
 export class TareaController {
-  constructor(private readonly tareaService: TareaService, private readonly usuarioService: UsuarioService,) {
-  }
+  constructor(
+    private readonly tareaService: TareaService,
+    private readonly usuarioService: UsuarioService,
+  ) {}
 
   @Post()
   async create(@Body() dto: CreateTareaDto) {
@@ -29,7 +44,10 @@ export class TareaController {
 
   @Put(':id')
   edit(@Param('id') id: string, @Body() dto: UpdateTareaDto) {
-    dto.fecha = new Date(dto.fecha);
+    if (dto.fecha) {
+      dto.fecha = new Date(dto.fecha);
+    }
+
     return this.tareaService.edit(id, dto);
   }
 

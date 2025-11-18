@@ -11,5 +11,5 @@ descripcion?: string;
   type: `string`,
   format: `date-time`,
 })
-fecha: Date;
+fecha?: Date;
 }
